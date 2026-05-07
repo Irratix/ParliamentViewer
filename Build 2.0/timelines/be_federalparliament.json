@@ -79,54 +79,18 @@
             "name": "2024 Federal Election",
             "date": "2024-06-09",
             "fractions": [
-                {
-                    "id": "pvdaptb",
-                    "seats": 15
-                },
-                {
-                    "id": "vooruit",
-                    "seats": 13
-                },
-                {
-                    "id": "ps",
-                    "seats": 16
-                },
-                {
-                    "id": "ecolo",
-                    "seats": 3
-                },
-                {
-                    "id": "groen",
-                    "seats": 6
-                },
-                {
-                    "id": "defi",
-                    "seats": 1
-                },
-                {
-                    "id": "le",
-                    "seats": 14
-                },
-                {
-                    "id": "cdv",
-                    "seats": 11
-                },
-                {
-                    "id": "anders",
-                    "seats": 7
-                },
-                {
-                    "id": "mr",
-                    "seats": 20
-                },
-                {
-                    "id": "nva",
-                    "seats": 24
-                },
-                {
-                    "id": "vb",
-                    "seats": 20
-                }
+                { "id": "pvdaptb", "seats": 15 },
+                { "id": "vooruit", "seats": 13 },
+                { "id": "ps", "seats": 16 },
+                { "id": "ecolo", "seats": 3 },
+                { "id": "groen", "seats": 6 },
+                { "id": "defi", "seats": 1 },
+                { "id": "le", "seats": 14 },
+                { "id": "cdv", "seats": 11 },
+                { "id": "anders", "seats": 7 },
+                { "id": "mr", "seats": 20 },
+                { "id": "nva", "seats": 24 },
+                { "id": "vb", "seats": 20 }
             ]
         }
     ]
