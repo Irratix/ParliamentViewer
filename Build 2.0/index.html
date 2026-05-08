@@ -42,19 +42,18 @@
 
     <!-- Right sidebar -->
     <div id="sidebar">
-        <button id="btn_prev" onclick="prev()" class="wide">Previous</button>
-        <button id="btn_next" onclick="next()" class="wide rbutton">Next</button>
+        <button id="btn_prev" onclick="prev()" class="wide" autocomplete="off">Previous</button>
+        <button id="btn_next" onclick="next()" class="wide rbutton" autocomplete="off">Next</button>
         <h1><span id="title"></span><span id="title_ps"></span></h1>
         <div id="table"></div>
         <div id="left_plm"></div>
-        <button title="Edit Mode" id="btn_edit" onclick="toggle_edit_mode()"><span class="icon edit"></span></button>
-        <button title="Add Party" id="btn_add" disabled><span class="icon add"></span></button>
-        <button title="Delete Selected" id="btn_del" onclick="delete_hlt()" disabled><span
-                class="icon delete"></span></button>
-        <button title="Move Party Left" id="btn_left" onclick="move_party_left()" disabled><span class="icon left"></span></button>
-        <button title="Move Party Right" id="btn_right" onclick="move_party_right()" disabled><span class="icon right"></span></button>
-        <button title="Sort Table" id="btn_sort" onclick="sort_table_by_seats()" disabled><span
-                class="icon sort"></span></button>
+        <button title="Edit Mode" id="btn_edit" onclick="toggle_edit_mode()" autocomplete="off"><span class="icon edit"></span></button>
+        <button title="Reset" id="btn_reset" onclick="reset_plm()" disabled autocomplete="off"><span class="icon reset"></span></button>
+        <button title="Add Party" id="btn_add" disabled><span class="icon add" autocomplete="off"></span></button>
+        <button title="Delete Selected" id="btn_del" onclick="delete_hlt()" disabled autocomplete="off"><span class="icon delete"></span></button>
+        <button title="Move Party Left" id="btn_left" onclick="move_party_left()" disabled autocomplete="off"><span class="icon left"></span></button>
+        <button title="Move Party Right" id="btn_right" onclick="move_party_right()" disabled autocomplete="off"><span class="icon right"></span></button>
+        <button title="Sort Table" id="btn_sort" onclick="sort_table_by_seats()" disabled autocomplete="off"><span class="icon sort"></span></button>
         <hr>
         <div class="small" id="links">
             View this project on <a target="#" href="https://github.com/Simon3995/ParliamentViewer">GitHub</a>

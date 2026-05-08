@@ -133,6 +133,19 @@ class Parliament {
             }
         }
     }
+
+    clone() {
+        const p = new Parliament(
+            this.fractions.map(frac => frac.clone()),
+            this.description,
+            this.date
+        );
+        // Restore seat_centers after constructor overwrote them
+        p.fractions.forEach((frac, i) => {
+            frac.seat_centers = structuredClone(this.fractions[i].seat_centers);
+        });
+        return p;
+    }
 }
 
 // a class for a party fraction in one election
@@ -142,15 +155,25 @@ class Fraction {
         this.seat_amt = seat_amt;
         this.seat_centers = [];
     }
+
+    clone() {
+        let frac = new Fraction(this.party.clone(), this.seat_amt);
+        frac.seat_centers = structuredClone(this.seat_centers);
+        return frac;
+    }
 }
 
 // a class for a political party, independent of year or election
 class Party {
     constructor(name, fullname, id, color = "#000000", image = null) {
-        this.id = id;
         this.name = name;
         this.fullname = fullname;
+        this.id = id;
         this.color = color;
         this.image = image;
+    }
+
+    clone() {
+        return new Party(this.name, this.fullname, this.id, this.color, this.image);
     }
 }

@@ -2,7 +2,8 @@
 const c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
 let cur_tml = null;		// current timeline object
-let cur_plm = null;		// current parliament object
+let cur_plm = null;		// current (editable) parliament object
+let ori_plm = null;		// original unedited parliament object
 let cur_hlt = [];		// current highlighted parties
 let edit_mode = false;	// whether edit mode is enabled
 let dragging = false;	// whether a dragging action is currently happening
@@ -47,6 +48,15 @@ function table_highlight() {
 	}
 }
 
+function reset_plm() {
+	document.getElementById("title_ps").innerHTML = "";
+	document.getElementById("btn_reset").disabled = true;
+	cur_plm = ori_plm.clone();
+	load_parliament(cur_plm);
+	edit_mode = false;
+	update_sidebar();
+}
+
 function highlight(id) {
 	if (id == null) {
 		cur_hlt = [];
@@ -63,6 +73,8 @@ function highlight(id) {
 
 function toggle_edit_mode() {
 	edit_mode = !edit_mode;
+	if (edit_mode) document.getElementById("title_ps").innerHTML = " (Edited)";
+	document.getElementById("btn_reset").disabled = false;
 	update_sidebar();
 }
 
@@ -101,9 +113,10 @@ function transform_ctx() {
 }
 
 function prev() {
-	const idx = cur_tml.parliaments.indexOf(cur_plm);
+	const idx = cur_tml.parliaments.indexOf(ori_plm);
 	const newIdx = Math.min(idx + 1, cur_tml.parliaments.length - 1);
-	cur_plm = cur_tml.parliaments[newIdx];
+	ori_plm = cur_tml.parliaments[newIdx];
+	cur_plm = ori_plm.clone();
 	load_parliament(cur_plm);
 
 	btn_prev.disabled = (newIdx+1 == cur_tml.parliaments.length);
@@ -111,9 +124,10 @@ function prev() {
 }
 
 function next() {
-	const idx = cur_tml.parliaments.indexOf(cur_plm);
+	const idx = cur_tml.parliaments.indexOf(ori_plm);
 	const newIdx = Math.max(idx - 1, 0);
-	cur_plm = cur_tml.parliaments[newIdx];
+	ori_plm = cur_tml.parliaments[newIdx];
+	cur_plm = ori_plm.clone();
 	load_parliament(cur_plm);
 
 	btn_prev.disabled = (newIdx+1 == cur_tml.parliaments.length);
@@ -168,10 +182,12 @@ async function load_timeline(name) {
 		}), par.name, new Date(par.date));
 	});
 	
-	cur_plm = cur_tml.parliaments[0];
+	ori_plm = cur_tml.parliaments[0];
+	cur_plm = ori_plm.clone();
 	load_parliament(cur_plm);
 	generate_party_imgs();
 	highlight(null);
+	next();
 	update();
 }
 
@@ -188,6 +204,7 @@ function load_parliament(parliament) {
 	ord_tab.sort((a,b) => {return b.seat_amt - a.seat_amt});
 
 	document.getElementById("title").innerHTML = parliament.description;
+	document.getElementById("title_ps").innerHTML = "";
 	update_sidebar();
 }
 
