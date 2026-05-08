@@ -28,6 +28,7 @@ hr {
     height: 100vh;
     width: 33.33vw;
     padding: 10px 15px;
+    overflow-y: scroll;
 }
 
 .small {
@@ -221,6 +222,12 @@ span.icon {
     float: left;
     height: 25px;
     width: 25px;
+}
+
+#add_party {
+    background-color: #adb5ff40;
+    padding: 12px;
+    border-radius: 5px;
 }
 
 button:disabled span.icon {
