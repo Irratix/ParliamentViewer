@@ -225,9 +225,42 @@ span.icon {
 }
 
 #add_party {
-    background-color: #adb5ff40;
+    background-color: #483d8b;
+    border: 5px solid #2a273d;
+    font-size: 18px;
+    filter: drop-shadow(5px 5px 0px #2a273d);
     padding: 12px;
-    border-radius: 5px;
+    width: 100%;
+}
+
+#add_party input[type=color] {
+    height: 20px;
+    vertical-align: middle;
+    border: none;
+    flex: 1;
+    margin-left: 12px;
+    min-width: 0;
+}
+
+#add_party input[type=text] {
+    flex: 1;
+    margin-left: 12px;
+    font-size: 18px;
+    min-width: 0;
+    background-color: #0004;
+    border: 1px solid #fff4;
+    color: white;
+}
+
+#add_party p {
+    line-height: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+}
+
+#links {
+    margin-bottom: 40px;
 }
 
 button:disabled span.icon {

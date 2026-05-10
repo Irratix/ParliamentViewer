@@ -12,6 +12,7 @@ let mouse_x = 0;		// current mouse X coord
 let mouse_y = 0;		// current mouse Y coord
 let ord_tab = [];		// party order in the table
 let ord_vis = [];		// party order left-right visually
+let DEBUG = false;
 
 const btn_prev = document.getElementById("btn_prev");
 const btn_next = document.getElementById("btn_next");
@@ -20,6 +21,7 @@ update();
 
 // main update loop
 function update() {
+	if (DEBUG) return;
 	requestAnimationFrame(update);
 
 	ctx.save();
@@ -478,6 +480,7 @@ window.addEventListener('mousemove', (e) => {
 });
 
 c.addEventListener("mousedown", (e) => {
+	if (!cur_tml) return;
 	for (const fraction of cur_plm.fractions) {
 		for (const seat of fraction.seat_centers) {
 			const dist = Math.hypot(seat[0] - mouse_x, seat[1] - mouse_y);
@@ -491,6 +494,7 @@ c.addEventListener("mousedown", (e) => {
 });
 
 document.getElementById("select-timeline").onchange = (e) => {
+	document.getElementById("sidebar").style.display = "inline-block";
 	load_timeline(e.target.value);
 }
 
@@ -534,6 +538,46 @@ function move_party_right() {
 	cur_plm.distribute_seats();
 }
 
+function show_add_menu() {
+	document.getElementById("add_party").style.display = "inline-block";
+}
+
+function add_party() {
+	const add_shortname = document.getElementById("add_shortname").value;
+	const add_fullname = document.getElementById("add_fullname").value;
+	const add_color = document.getElementById("add_color").value;
+
+	if (add_shortname === '') {
+		alert("No short name entered!");
+		return;
+	}
+
+	if (add_fullname === '') {
+		alert("No full name entered!");
+		return;
+	}
+
+	const id = add_shortname.toLowerCase();
+	let num = 0;
+	while (cur_tml.parties[id+num]) num++;
+	const new_party = new Party(add_shortname, add_fullname, id+num, add_color, new Image());
+	cur_tml.parties[id+num] = new_party;
+	const new_frac = new Fraction(new_party, 1);
+	ord_tab.push(new_frac);
+	ord_vis.push(new_frac);
+	cur_plm.add_fraction(new_frac);
+	generate_party_imgs();
+	update_sidebar();
+	cancel_add_party();
+}
+
+function cancel_add_party() {
+	document.getElementById("add_shortname").value = "";
+	document.getElementById("add_fullname").value = "";
+	document.getElementById("add_color").value = "#000000";
+	document.getElementById("add_party").style.display = "none";
+}
+
 $(document).on("click", "tbody tr", function(e) {
     if ($(e.target).is("input")) return;
 	
@@ -543,9 +587,11 @@ $(document).on("click", "tbody tr", function(e) {
 });
 
 $(document).on("change", "input", function(e) {
-	if (e.target.value == '') e.target.value = 0;
-	cur_plm.set_party_seats(e.target.name, e.target.value);
-	update_table_footer();
+	if (e.target.type === 'number') {
+		if (e.target.value === '') e.target.value = 0;
+		cur_plm.set_party_seats(e.target.name, e.target.value);
+		update_table_footer();
+	}
 });
 
 // lose focus on enter press in number input
