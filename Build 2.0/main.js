@@ -12,7 +12,6 @@ let mouse_x = 0;		// current mouse X coord
 let mouse_y = 0;		// current mouse Y coord
 let ord_tab = [];		// party order in the table
 let ord_vis = [];		// party order left-right visually
-let DEBUG = false;
 
 const btn_prev = document.getElementById("btn_prev");
 const btn_next = document.getElementById("btn_next");
@@ -21,7 +20,6 @@ update();
 
 // main update loop
 function update() {
-	if (DEBUG) return;
 	requestAnimationFrame(update);
 
 	ctx.save();
@@ -377,7 +375,7 @@ function table_edit_mode() {
 		string += `<tr ${id} class="tablerow">`;
 		string += "<td>" + frac.party.name + "</td>";
 		string += "<td>" + frac.party.fullname + "</td>";
-		string += `<td><input name="${frac.party.id}" type="number" value="${frac.seat_amt}" min="0" max="5000"></td>`;
+		string += `<td><input name="${frac.party.id}" type="number" value="${frac.seat_amt}" min="0" max="10000"></td>`;
 
 		total_seats += frac.seat_amt;
 		if (cur_hlt.includes(frac.party.id)) total_hlt += frac.seat_amt;
@@ -592,8 +590,24 @@ $(document).on("click", "tbody tr", function(e) {
 
 $(document).on("change", "input", function(e) {
 	if (e.target.type === 'number') {
-		if (e.target.value === '') e.target.value = 0;
+		let value = Number(e.target.value);
+		e.target.value = value;
+
+		// don´t allow negative value in number field
+		if (value < 0) e.target.value = 0;
+
+		// find new total seat amount, possible surplus
 		cur_plm.set_party_seats(e.target.name, e.target.value);
+		let new_amt = cur_plm.seat_amt();
+		const surplus = Math.max(0, new_amt - 10000);
+
+		// subtract surplus if there is one
+		if (surplus > 0) {
+			value -= surplus;
+			cur_plm.set_party_seats(e.target.name, value);
+		}
+
+		e.target.value = value;
 		update_table_footer();
 	}
 });
