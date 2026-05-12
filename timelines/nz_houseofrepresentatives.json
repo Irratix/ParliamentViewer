@@ -43,30 +43,12 @@
             "name": "2023 General Election",
             "date": "2023-10-14",
             "fractions": [
-                {
-                    "id": "green",
-                    "seats": 15
-                },
-                {
-                    "id": "maori",
-                    "seats": 6
-                },
-                {
-                    "id": "lab",
-                    "seats": 34
-                },
-                {
-                    "id": "nats",
-                    "seats": 48
-                },
-                {
-                    "id": "act",
-                    "seats": 11
-                },
-                {
-                    "id": "nzf",
-                    "seats": 8
-                }
+                { "id": "green", "seats": 15 },
+                { "id": "maori", "seats": 6 },
+                { "id": "lab", "seats": 34 },
+                { "id": "nats", "seats": 48 },
+                { "id": "act", "seats": 11 },
+                { "id": "nzf", "seats": 8 }
             ]
         }
     ]
