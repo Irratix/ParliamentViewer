@@ -240,7 +240,7 @@ button:active:enabled {
 
 .greener {
     animation-name: pulseColor;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-iteration-count: infinite;
 }
 
@@ -325,15 +325,15 @@ span.next { background: url(./icons/next.svg) no-repeat; }
 
 @keyframes pulseColor {
     0% {
-        color: #8bffd6;
+        color: #48b0ff;
     }
 
     50% {
-        color: #00ddff;
+        color: #7eddff;
     }
 
     100% {
-        color: #8bffd6;
+        color: #48b0ff;
     }
 }
 
