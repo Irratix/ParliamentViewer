@@ -206,16 +206,30 @@ export function highlight(id) {
 	if (id == null) {
 		// remove all highlighted
         S.cur_hlt = [];
-	} else if (S.cur_hlt.includes(id)) {
+	} else if (is_highlighted(id)) {
         // remove this party from highlighted
-		S.cur_hlt.splice(S.cur_hlt.indexOf(id), 1);
+		for (let i = 0; i < S.cur_hlt.length; i++) {
+			if (S.cur_hlt[i].party === id) {
+				S.cur_hlt.splice(i, 1);
+			}
+		}
 	} else {
         // add this party to highlighted
-		S.cur_hlt.push(id);
+		S.cur_hlt.push({
+			'party': id
+		});
 	}
 
 	table_highlight();
 	update_table_footer();
 	update_buttons();
 	schedule_frame();
+}
+
+// helper function to determine whether or not a party is highlighted
+export function is_highlighted(id) {
+	for (const p of S.cur_hlt) {
+		if (p.party === id) return true;
+	}
+	return false;
 }

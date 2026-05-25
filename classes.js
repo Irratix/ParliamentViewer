@@ -1,6 +1,7 @@
 import { S, schedule_frame } from "./main.js";
 import { c, ctx } from "./canvas.js";
 import { get_seats_centers, get_row_thickness, get_nrows_from_nseats } from "./geometry.js";
+import { is_highlighted } from "./controller.js";
 
 // a class for a parliament timeline, containing a series of election results
 export class Timeline {
@@ -124,7 +125,7 @@ export class Parliament {
 
         let has_enlarged = false;
         for (let fraction of this.fractions) {
-            let opacity = (S.cur_hlt.includes(fraction.party.id)) ? 1 : (S.cur_hlt.length ? (cur_hover === fraction.party.id ? 0.6 : 0.2) : 1);
+            let opacity = (is_highlighted(fraction.party.id)) ? 1 : (S.cur_hlt.length ? (cur_hover === fraction.party.id ? 0.6 : 0.2) : 1);
 
             for (const seat of fraction.seat_centers) {
                 
